@@ -268,6 +268,8 @@ export const EnvSchema = z.object({
   SSE_RETRY_MS: integerEnv('SSE_RETRY_MS', 100, 300_000).default(5000),
   /** Interval in milliseconds between SSE heartbeat comments per connection. */
   SSE_HEARTBEAT_INTERVAL_MS: integerEnv('SSE_HEARTBEAT_INTERVAL_MS', 100, 300_000).default(30_000),
+  /** Milliseconds to wait for SSE shutdown callbacks to complete before forcing close. */
+  SSE_DRAIN_TIMEOUT_MS: integerEnv('SSE_DRAIN_TIMEOUT_MS', 1_000, 60_000).default(30_000),
   INDEXER_ENABLED: booleanEnv().default(false),
   WORKER_ENABLED: booleanEnv().default(false),
   INDEXER_STALL_THRESHOLD_MS: integerEnv('INDEXER_STALL_THRESHOLD_MS', 1000).default(5 * 60 * 1000),
@@ -394,6 +396,8 @@ export interface Config {
   sseRetryMs: number;
   /** Interval in milliseconds between per-connection SSE heartbeat comments. */
   sseHeartbeatIntervalMs: number;
+  /** Milliseconds to wait for SSE shutdown callbacks to complete before forcing close. */
+  sseDrainTimeoutMs: number;
   indexerEnabled: boolean;
   workerEnabled: boolean;
   indexerStallThresholdMs: number;
